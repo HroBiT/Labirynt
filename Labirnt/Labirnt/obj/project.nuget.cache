@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "QxjfK/cVgDnvz8YS5Et99iUt0v680G8Wf8dSKbpBzwlfoalCwBNAjcGY3G+RkDtx0oS3J1eB5oYGccb9Co1PAg==",
+  "success": true,
+  "projectFilePath": "D:\\projekty\\Labirnt\\Labirnt\\Labirnt.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gruca\\.nuget\\packages\\system.reactive\\6.0.0\\system.reactive.6.0.0.nupkg.sha512",
+    "C:\\Users\\gruca\\.nuget\\packages\\system.reactive.windows.forms\\6.0.0\\system.reactive.windows.forms.6.0.0.nupkg.sha512",
+    "C:\\Users\\gruca\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „System.Reactive.Windows.Forms 6.0.0” został przywrócony przy użyciu elementu „.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1” zamiast platformy docelowej projektu „net6.0”. Ten pakiet może nie być w pełni kompatybilny z Twoim projektem.",
+      "libraryId": "System.Reactive.Windows.Forms",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}
