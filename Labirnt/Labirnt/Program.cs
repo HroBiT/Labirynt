@@ -1,56 +1,63 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 
 class Program
 {
     static char[,] labirynt;
     static int iloscWierszy, iloscKolumn;
-
-    static void Main()
-    {
-        Console.WriteLine("Podaj ilość wierszy:");
-        iloscWierszy = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine("Podaj ilość kolumn:");
-        iloscKolumn = Convert.ToInt32(Console.ReadLine());
-
-        InicjalizujLabirynt();
-
+static void Main()
+{
         while (true)
         {
-            WyswietlLabirynt();
+            try {
+                Console.WriteLine("Podaj ilość wierszy:");
+                iloscWierszy = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Co chcesz zrobić?");
-            Console.WriteLine("1. Modyfikuj element");
-            Console.WriteLine("2. Zapisz labirynt");
-            Console.WriteLine("3. Wczytaj labirynt");
-            Console.WriteLine("4. Wyjście");
+                Console.WriteLine("Podaj ilość kolumn:");
+                iloscKolumn = Convert.ToInt32(Console.ReadLine());
 
-            int wybor = Convert.ToInt32(Console.ReadLine());
 
-            switch (wybor)
-            {
-                case 1:
-                    ModyfikujElement();
-                    break;
-                case 2:
-                    ZapiszLabirynt();
-                    break;
-                case 3:
-                    OdczytajLabirynt();
-                    break;
-                case 4:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Nieprawidłowy wybór. Spróbuj ponownie.");
-                    break;
-            }
-        }
-    }
+                ZrobLabirynt();
 
-    static void InicjalizujLabirynt()
+                while (true)
+                {
+
+                    WyswietlLabirynt();
+
+                    Console.WriteLine("wybierz numer od 1-4");
+                    Console.WriteLine("1) Modyfikuj element");
+                    Console.WriteLine("2) Zapisz labirynt");
+                    Console.WriteLine("3) Wczytaj labirynt");
+                    Console.WriteLine("4) Wyjście");
+
+                    int wybor = Convert.ToInt32(Console.ReadLine());
+
+                    switch (wybor)
+                    {
+                        case 1:
+                            ModyfikujElement();
+                            break;
+                        case 2:
+                            ZapiszLabirynt();
+                            break;
+                        case 3:
+                            OdczytajLabirynt();
+                            break;
+                        case 4:
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.WriteLine("cos nie tak");
+                            break;
+                    }
+                }
+            }catch(FormatException) { Console.WriteLine("cos nie tak"); }
+           }
+}
+
+    static void ZrobLabirynt()
     {
         labirynt = new char[iloscWierszy, iloscKolumn];
 
@@ -65,6 +72,7 @@ class Program
 
     static void WyswietlLabirynt()
     {
+        System.Threading.Thread.Sleep(500);
         Console.Clear();
 
         for (int i = 0; i < iloscWierszy; i++)
@@ -79,70 +87,73 @@ class Program
 
     static void ModyfikujElement()
     {
-        Console.WriteLine("Podaj wiersz:");
+        Console.WriteLine("1) edytacja \n");
+        Console.WriteLine("podaj wiersz:");
         int wiersz = Convert.ToInt32(Console.ReadLine());
 
-        Console.WriteLine("Podaj kolumnę:");
+        Console.WriteLine("podaj kolumnę:");
         int kolumna = Convert.ToInt32(Console.ReadLine());
 
-        Console.WriteLine("Wybierz stan:");
-        Console.WriteLine("1. Brak");
-        Console.WriteLine("2. Ściana");
-        Console.WriteLine("3. Ścieżka");
-
+            Console.WriteLine("wybierz stan:");
+            Console.WriteLine("1. brak (znak '?')");
+            Console.WriteLine("2. sciana (znak '#')");
+            Console.WriteLine("3. sciezka (znak '.')");
         int stan = Convert.ToInt32(Console.ReadLine());
 
         switch (stan)
         {
             case 1:
-                labirynt[wiersz, kolumna] = '.';
+                labirynt[wiersz, kolumna] = '?';
                 break;
             case 2:
                 labirynt[wiersz, kolumna] = '#';
                 break;
             case 3:
-                labirynt[wiersz, kolumna] = ' ';
+                labirynt[wiersz, kolumna] = '.';
                 break;
             default:
-                Console.WriteLine("Nieprawidłowy stan.");
+                Console.WriteLine("wpisujesz cos zle");
                 break;
         }
     }
 
     static void ZapiszLabirynt()
     {
-        using (StreamWriter sw = new StreamWriter("labirynt.txt"))
+        
+        using (StreamWriter dokument = new StreamWriter("labirynt.txt"))
         {
-            sw.WriteLine(iloscWierszy);
-            sw.WriteLine(iloscKolumn);
+            dokument.WriteLine(iloscWierszy);
+            dokument.WriteLine(iloscKolumn);
 
             for (int i = 0; i < iloscWierszy; i++)
             {
                 for (int j = 0; j < iloscKolumn; j++)
                 {
-                    sw.Write(labirynt[i, j]);
+                    dokument.Write(labirynt[i, j]);
                 }
-                sw.WriteLine();
+                dokument.WriteLine();
             }
         }
 
-        Console.WriteLine("Labirynt został zapisany do pliku.");
+        Console.WriteLine("Labirynt zostal zapisany do pliku");
+        System.Threading.Thread.Sleep(500);
+        Console.Clear();
     }
 
     static void OdczytajLabirynt()
     {
         try
         {
-            using (StreamReader sr = new StreamReader("labirynt.txt"))
+            using (StreamReader dokument = new StreamReader("labirynt.txt"))
             {
-                iloscWierszy = Convert.ToInt32(sr.ReadLine());
-                iloscKolumn = Convert.ToInt32(sr.ReadLine());
+                iloscWierszy = Convert.ToInt32(dokument.ReadLine());
+                iloscKolumn = Convert.ToInt32(dokument.ReadLine());
 
-                InicjalizujLabirynt();
+                ZrobLabirynt();
 
                 for (int i = 0; i < iloscWierszy; i++)
                 {
-                    string linia = sr.ReadLine();
+                    string linia = dokument.ReadLine();
                     for (int j = 0; j < iloscKolumn; j++)
                     {
                         labirynt[i, j] = linia[j];
@@ -150,11 +161,11 @@ class Program
                 }
             }
 
-            Console.WriteLine("Labirynt został wczytany z pliku.");
+            Console.WriteLine("Labirynt zostal wczytany z pliku");
         }
         catch (FileNotFoundException)
         {
-            Console.WriteLine("Plik z labiryntem nie istnieje.");
+            Console.WriteLine("Plik z labiryntem nie istnieje");
         }
     }
 }
