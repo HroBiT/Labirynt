@@ -28,9 +28,7 @@ static void Main()
 
                     Console.WriteLine("wybierz numer od 1-4");
                     Console.WriteLine("1) Modyfikuj element");
-                    Console.WriteLine("2) Zapisz labirynt");
-                    Console.WriteLine("3) Wczytaj labirynt");
-                    Console.WriteLine("4) Wyjście");
+                    Console.WriteLine("2) Wyjście");
 
                     int wybor = Convert.ToInt32(Console.ReadLine());
 
@@ -40,12 +38,6 @@ static void Main()
                             ModyfikujElement();
                             break;
                         case 2:
-                            ZapiszLabirynt();
-                            break;
-                        case 3:
-                            OdczytajLabirynt();
-                            break;
-                        case 4:
                             Environment.Exit(0);
                             break;
                         default:
@@ -117,55 +109,5 @@ static void Main()
         }
     }
 
-    static void ZapiszLabirynt()
-    {
-        
-        using (StreamWriter dokument = new StreamWriter("labirynt.txt"))
-        {
-            dokument.WriteLine(iloscWierszy);
-            dokument.WriteLine(iloscKolumn);
-
-            for (int i = 0; i < iloscWierszy; i++)
-            {
-                for (int j = 0; j < iloscKolumn; j++)
-                {
-                    dokument.Write(labirynt[i, j]);
-                }
-                dokument.WriteLine();
-            }
-        }
-
-        Console.WriteLine("Labirynt zostal zapisany do pliku");
-        System.Threading.Thread.Sleep(500);
-        Console.Clear();
-    }
-
-    static void OdczytajLabirynt()
-    {
-        try
-        {
-            using (StreamReader dokument = new StreamReader("labirynt.txt"))
-            {
-                iloscWierszy = Convert.ToInt32(dokument.ReadLine());
-                iloscKolumn = Convert.ToInt32(dokument.ReadLine());
-
-                ZrobLabirynt();
-
-                for (int i = 0; i < iloscWierszy; i++)
-                {
-                    string linia = dokument.ReadLine();
-                    for (int j = 0; j < iloscKolumn; j++)
-                    {
-                        labirynt[i, j] = linia[j];
-                    }
-                }
-            }
-
-            Console.WriteLine("Labirynt zostal wczytany z pliku");
-        }
-        catch (FileNotFoundException)
-        {
-            Console.WriteLine("Plik z labiryntem nie istnieje");
-        }
-    }
+  
 }
